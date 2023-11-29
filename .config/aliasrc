@@ -1,0 +1,62 @@
+#!/bin/bash
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+alias ..="cd .."
+alias ....="cd ../.."
+alias ......="cd ../../.."
+alias ..2="cd ../.."
+alias ..3="cd ../../.."
+alias ..4="cd ../../../.."
+alias ..5="cd ../../../../.."
+alias ~="cd ~"
+alias Update="sudo apt-get update && sudo apt-get upgrade -y"
+#alias def=sdcv
+alias Zshconfig="vim ~/.zshrc"
+
+# format definition 
+function def() {
+	sdcv -n --utf8-output --color "$@" 2>&1 | \
+	fold --width=$(tput cols) | \
+	less --quit-if-one-screen -RX
+}
+
+# Overrides
+alias ip="ip -color"
+alias ls='ls --color=auto'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias ffprobe='ffprobe -hide_banner' # removes the gcc compile information
+alias vim=nvim
+alias shutdown='shutdown now'
+
+alias swekeys='sudo loadkeys /usr/share/kbd/keymaps/i386/qwerty/se-lat6.map.gz'
+#alias pacman='sudo pacman'
+alias Keyescit='setxkbmap -layout se -variant nodeadkeys -option caps:escape'
+alias QtileConfig='vim .config/qtile/config.py'
+alias QtileTestConfig='python .config/qtile/config.py'
+alias SC='cd ~/code/javascript/ShortcutCreator'
+alias image="sxiv"
+alias MakeServerHere='browser-sync start --server --files "*"'
+alias KataComplete='git add . && git commit -m "added solved kata"'
+
+#du ~/code/* | sed 's/\/\..*//' | sed 's/.*node_modules.*//' | awk '!seen[$2]++' | fzf
+
+# Functions
+Ce () {du -a ~/code/* | awk {'print $2'} | fzf | xargs -r $EDITOR ; }
+Cd () { cd $(du ~/code/* | awk {'print $2'} | fzf )  }
+CdCode () { cd $(du ~/code/* | awk {'print $2'} | fzf ) && code . && exit }
+MakeServer () { cd $(du ~/code/* | sed 's/\/\..*//' | sed 's/.*node_modules.*//' | awk '!seen[$2]++ {print $2}' | fzf) && browser-sync start --server --files "*" }
+Npm () { cd $(du ~/code/* | sed 's/\/\..*//' | sed 's/.*node_modules.*//' | awk '!seen[$2]++ {print $2}' | fzf ) && npm start }
+Npmd () {  cd $(du ~/code/* | sed 's/\/\..*//' | sed 's/.*node_modules.*//' | awk '!seen[$2]++ {print $2}' | fzf ) && npm run dev }
+Pdf () {
+PDFFILE=$(du -a ~/Documents/*.pdf ~/Documents/books/*.pdf | awk {'print $2'} | fzf )
+[[ -n $PDFFILE ]] && zathura $PDFFILE & disown && exit
+}
+UnicodeSearch () {cat ~/.data/unicode | fzf | grep -oP ".$" | tr -d '\n' | xclip -selection clipboard }
+
+alias IP="curl https://ipecho.net/plain"
+alias DoKata="code ~/code/javascript/node/codewars && exit"
+alias DotFiles='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
