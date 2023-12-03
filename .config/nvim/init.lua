@@ -22,3 +22,5 @@ require "plugins"
 
 vim.wo.relativenumber = true
 vim.opt.clipboard = "unnamedplus"
+
+-- :hi normal guibg=NONE
