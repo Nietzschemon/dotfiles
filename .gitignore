@@ -65,7 +65,6 @@
 .config/pulse
 .config/QtProject.conf
 .config/session
-.config/st
 .config/systemmonitorrc
 .config/systemsettingsrc
 .config/Trolltech.conf
