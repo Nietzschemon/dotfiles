@@ -51,7 +51,6 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "unclutter -keystroke -root" }) -- entries must be comma-separated
 
 local themes = {
     "powerarrow-blue", -- 1
@@ -821,7 +820,7 @@ awful.spawn.with_shell("nitrogen --restore")
 -- awful.spawn.with_shell("compton")
 awful.spawn.with_shell("nm-applet")
 awful.spawn.with_shell("volumeicon")
-awful.spawn.with_shell("uncloutter -idle 2")
+awful.spawn.with_shell("uncloutter -keystroke")
 awful.spawn.with_shell("xscreensaver --no-splash")
 awful.spawn.with_shell("setxkbmap -layout se -variant nodeadkeys -option caps:escape")
 awful.spawn.with_shell("xcompmgr")

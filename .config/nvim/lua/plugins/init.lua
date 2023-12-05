@@ -115,6 +115,19 @@ local default_plugins = {
       require("gitsigns").setup(opts)
     end,
   },
+  {
+    "github/copilot.vim",
+    lazy = false,
+    config = function()
+      -- Mapping tab is already used by NvChad
+      vim.g.copilot_no_tab_map = true;
+      vim.g.copilot_assume_mapped = true;
+      vim.g.copilot_tab_fallback = "";
+      -- The mapping is set to other key, see custom/lua/mappings
+      -- or run <leader>ch to see copilot mapping section
+    end
+  },
+
 
   -- lsp stuff
   {
@@ -127,11 +140,14 @@ local default_plugins = {
       dofile(vim.g.base46_cache .. "mason")
       require("mason").setup(opts)
 
+      opts.ensure_installed = {
+"typescript-language-server"
+      }
       -- custom nvchad cmd to install all mason binaries listed
       vim.api.nvim_create_user_command("MasonInstallAll", function()
         vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
       end, {})
-
+-- typescript-language-server
       vim.g.mason_binaries_list = opts.ensure_installed
     end,
   },
@@ -143,6 +159,7 @@ local default_plugins = {
     end,
     config = function()
       require "plugins.configs.lspconfig"
+      require "custom.configs.lspconfig"
     end,
   },
 
