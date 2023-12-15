@@ -1,4 +1,11 @@
 .cfg
+.ssh
+.cache
+.local
+.histdb
+.gnupg
+.bash_history
+![a-zA-Z]
 .config/Sharepoint_Dental-IT_i_Sverige_AB
 .config/onedrive
 .config/emacs

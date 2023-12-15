@@ -1,17 +1,13 @@
-/* See LICENSE file for copyright and license details. */
-
 /*
  * appearance
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 //static char *font = "mono:pixelsize=12:antialias=true:autohint=true";
-//static char *font = "jetbrains-mono:pixelsize=20:antialias=true:autohint=true";
 static char *font = "JetBrainsMonoNerdFont:pixelsize=20:antialias=true:autohint=true";
 static char *font2[] = { "JetBrainsMonoNerdFont:pixelsize=22:antialias=true:autohint=true" };
 //static char *font2[] = { "NotoColorEmoji:pixelsize=22:antialias=true:autohint=true" };
 static int borderpx = 2;
-///usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Regular.ttf:
 
 /*
  * What program is execed by st depends of these precedence rules:
