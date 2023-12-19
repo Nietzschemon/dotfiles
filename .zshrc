@@ -102,7 +102,7 @@ autoload -Uz add-zsh-hook
 source $HOME/.gitrepos/zsh-histdb/histdb-interactive.zsh
 bindkey '^r' _histdb-isearch
 
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
   exec startx

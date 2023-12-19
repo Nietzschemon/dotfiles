@@ -119,7 +119,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-~/.config/aliasrc.sh
+~/.config/aliasrc
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/stefan/.sdkman"
