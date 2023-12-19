@@ -164,7 +164,7 @@ beautiful.init(string.format(gears.filesystem.get_configuration_dir() .. "/theme
 local myawesomemenu = {
     { "hotkeys", function() return false, hotkeys_popup.show_help end },
     { "manual", terminal .. " -e 'man awesome'" },
-    { "edit config", "nvim ~/.config/awesome/rc.lua" },
+    { "edit config", "emacsclient -c -a emacs ~/.config/awesome/rc.lua" },
     { "arandr", "arandr" },
     { "restart", awesome.restart },
 }
@@ -271,11 +271,6 @@ globalkeys = my_table.join(
     awful.key({ modkey1, "Shift"  }, "Print", function() awful.util.spawn("gnome-screenshot -i") end,
         {description = "Gnome screenshot", group = "screenshots"}),
 
-  -- bluetooth
-    awful.key({ modkey, "Shift"}, "b", function () awful.spawn.with_shell('bluetoothctl connect $(bluetoothctl devices Paired | dmenu | cut -d" " -f2)') end,
-        {description = "Connect bluetooth device" , group = "bluetooth" }),
-    awful.key({ modkey, "Control"}, "b", function () awful.spawn.with_shell('bluetoothctl disconnect $(bluetoothctl devices Paired | dmenu | cut -d" " -f2)') end,
-        {description = "Diconnect bluetooth device" , group = "bluetooth" }),
     -- Personal keybindings}}}
 
 
@@ -825,7 +820,7 @@ awful.spawn.with_shell("nitrogen --restore")
 -- awful.spawn.with_shell("compton")
 awful.spawn.with_shell("nm-applet")
 awful.spawn.with_shell("volumeicon")
-awful.spawn.with_shell("unclutter")
+awful.spawn.with_shell("uncloutter")
 awful.spawn.with_shell("xscreensaver --no-splash")
 awful.spawn.with_shell("setxkbmap -layout se -variant nodeadkeys -option caps:escape")
 awful.spawn.with_shell("xcompmgr")
