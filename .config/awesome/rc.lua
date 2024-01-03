@@ -77,6 +77,7 @@ local mediaplayer       = "vlc"
 local scrlocker         = "slimlock"
 local terminal          = "st"
 local virtualmachine    = "virtualbox"
+local home_folder = os.getenv("HOME")
 
 -- awesome variables
 awful.util.terminal = terminal
@@ -249,9 +250,9 @@ globalkeys = my_table.join(
         {description = "newsboat" , group = "terminal apps" }),
 
     -- Config files
-    awful.key({ modkey, "Shift" }, "a", function () awful.util.spawn( terminal.." -e nvim  ~/.config/awesome/rc.lua" ) end,
+    awful.key({ modkey, "Shift" }, "a", function () awful.util.spawn( terminal.." -e nvim  " .. home_folder .. "/.config/awesome/rc.lua" ) end,
         {description = "Awesome config file" , group = "Config Files" }),
-    awful.key({ modkey, "Shift" }, "v", function () awful.util.spawn( terminal.." -e nvim ~/.config/nvim/init.lua" ) end,
+    awful.key({ modkey, "Shift" }, "v", function () awful.util.spawn( terminal.." -e nvim " .. home_folder .. "/.config/nvim/init.lua" ) end,
         {description = "Nvim config file" , group = "Config Files" }),
 
     -- Shutdown, reboot and Lock
@@ -277,6 +278,14 @@ globalkeys = my_table.join(
     awful.key({ modkey, "Control"}, "b", function () awful.spawn.with_shell('bluetoothctl disconnect $(bluetoothctl devices Paired | dmenu | cut -d" " -f2)') end,
         {description = "Diconnect bluetooth device" , group = "bluetooth" }),
     -- Personal keybindings}}}
+  --
+  -- communication
+    awful.key({ modkey, altkey }, "c", function () awful.util.spawn('telegram-desktop') end,
+        {description = "Spawn telegram" , group = "communication" }),
+    awful.key({ modkey, "Shift" }, "c", function () awful.util.spawn('teams-for-linux') end,
+        {description = "Spawn ms teams" , group = "communication" }),
+    awful.key({ modkey, "Control", "Shift" }, "c", function () awful.util.spawn('outlook-for-linux') end,
+        {description = "Spawn outlook" , group = "communication" }),
 
 
     -- Hotkeys Awesome
@@ -452,13 +461,8 @@ globalkeys = my_table.join(
     awful.key({ modkey, }, "z", function () awful.screen.focused().quake:toggle() end,
               {description = "dropdown application", group = "super"}),
 
-    -- Widgets popups
-    awful.key({ modkey, altkey, }, "c", function () lain.widget.cal.show(7) end,
-              {description = "show calendar", group = "widgets"}),
     --awful.key({ modkey, altkey, }, "h", function () if beautiful.fs then beautiful.fs.show(7) end end,
               --{description = "show filesystem", group = "widgets"}),
-    awful.key({  modkey, altkey, }, "w", function () if beautiful.weather then beautiful.weather.show(7) end end,
-              {description = "show weather", group = "widgets"}),
 
     -- Brightness
     awful.key({ }, "XF86MonBrightnessUp", function () os.execute("xbacklight -inc 10") end,
