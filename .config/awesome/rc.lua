@@ -254,6 +254,8 @@ globalkeys = my_table.join(
         {description = "Awesome config file" , group = "Config Files" }),
     awful.key({ modkey, "Shift" }, "v", function () awful.util.spawn( terminal.." -e nvim " .. home_folder .. "/.config/nvim/init.lua" ) end,
         {description = "Nvim config file" , group = "Config Files" }),
+    awful.key({ modkey, altkey, "Control", "Shift" }, "m", function () awful.spawn.with_shell(  home_folder .. "/.screenlayout/defaultlayout.sh" ) end,
+        {description = "Set monitor layout" , group = "Config Files" }),
 
     -- Shutdown, reboot and Lock
     awful.key({ modkey, "Control", "Shift"}, "s", function () awful.spawn.with_shell("shutdown now") end,
@@ -286,6 +288,8 @@ globalkeys = my_table.join(
         {description = "Spawn ms teams" , group = "communication" }),
     awful.key({ modkey, "Control", "Shift" }, "c", function () awful.util.spawn('outlook-for-linux') end,
         {description = "Spawn outlook" , group = "communication" }),
+    awful.key({ modkey, altkey, "Shift" }, "c", function () awful.util.spawn('whatsapp-for-linux') end,
+        {description = "Spawn whatsapp" , group = "communication" }),
 
 
     -- Hotkeys Awesome
