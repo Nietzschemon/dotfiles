@@ -141,7 +141,17 @@ local default_plugins = {
       require("mason").setup(opts)
 
       opts.ensure_installed = {
-"typescript-language-server"
+"typescript-language-server",
+        "eslint-lsp",
+        "json-lsp",
+        "tflint",
+        "yaml-language-server",
+        "ansible-language-server",
+        "css-lsp",
+        "marksman",
+        "powershell-editor-services",
+        "python-lsp-server"
+
       }
       -- custom nvchad cmd to install all mason binaries listed
       vim.api.nvim_create_user_command("MasonInstallAll", function()
