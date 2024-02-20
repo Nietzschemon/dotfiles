@@ -10,6 +10,7 @@ from qtile_extras.widget.decorations import BorderDecoration
 import colors
 
 mod = "mod4"              # Sets mod key to SUPER/WINDOWS
+alt = "mod1"
 myTerm = "st"      # My terminal of choice
 myBrowser = "chromium"       # My browser of choice
 myEmacs = "emacsclient -c -a 'emacs' " # The space at the end is IMPORTANT!
@@ -45,13 +46,20 @@ keys = [
     Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
     #Key([mod, "shift"], "q", lazy.spawn("dm-logout -r"), desc="Logout menu"),
     #Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key([mod, "control", "shift"], "s", lazy.spawn("shutdown now"), desc='shutdown'),
+    Key([mod, "control", "shift"], "r", lazy.spawn("reboot"), desc='reboot'),
+    Key([mod, "control", "shift"], "l", lazy.spawn("xscreensaver-command --lock"), desc='lock computer'),
+
 
     # Website
     Key([mod], "w", lazy.spawn(myBrowser), desc='Chromium'),
     Key([mod, "shift"], "w", lazy.spawn("chromium --incognito"), desc='chromium incognito'),
-    Key([mod, "alt"], "w", lazy.spawn("brave --incognito"), desc='brave incognito'),
+    Key([mod, alt], "w", lazy.spawn("brave --incognito"), desc='brave incognito'),
     Key([mod, "control"], "w", lazy.spawn("firefox --private"), desc='firefox incognito'),
-    Key([mod, "control", "alt"], "w", lazy.spawn("qutebrowser"), desc='qutebrowser'),
+    Key([mod, "control", alt], "w", lazy.spawn("qutebrowser"), desc='qutebrowser'),
+
+    # Applications
+    Key([mod], "e", lazy.spawn("emacs"), desc='emacs'),
 
 
     
@@ -127,27 +135,29 @@ keys = [
     Key([mod], "period", lazy.next_screen(), desc='Move focus to next monitor'),
     Key([mod], "comma", lazy.prev_screen(), desc='Move focus to prev monitor')
     
-    """
-    # Dmenu/rofi scripts launched using the key chord SUPER+p followed by 'key'
-    KeyChord([mod], "p", [
-        Key([], "h", lazy.spawn("dm-hub -r"), desc='List all dmscripts'),
-        Key([], "a", lazy.spawn("dm-sounds -r"), desc='Choose ambient sound'),
-        Key([], "b", lazy.spawn("dm-setbg -r"), desc='Set background'),
-        Key([], "c", lazy.spawn("dtos-colorscheme -r"), desc='Choose color scheme'),
-        Key([], "e", lazy.spawn("dm-confedit -r"), desc='Choose a config file to edit'),
-        Key([], "i", lazy.spawn("dm-maim -r"), desc='Take a screenshot'),
-        Key([], "k", lazy.spawn("dm-kill -r"), desc='Kill processes '),
-        Key([], "m", lazy.spawn("dm-man -r"), desc='View manpages'),
-        Key([], "n", lazy.spawn("dm-note -r"), desc='Store and copy notes'),
-        Key([], "o", lazy.spawn("dm-bookman -r"), desc='Browser bookmarks'),
-        Key([], "p", lazy.spawn("rofi-pass"), desc='Logout menu'),
-        Key([], "q", lazy.spawn("dm-logout -r"), desc='Logout menu'),
-        Key([], "r", lazy.spawn("dm-radio -r"), desc='Listen to online radio'),
-        Key([], "s", lazy.spawn("dm-websearch -r"), desc='Search various engines'),
-        Key([], "t", lazy.spawn("dm-translate -r"), desc='Translate text')
-    ])
-"""
 ]
+
+"""
+# Dmenu/rofi scripts launched using the key chord SUPER+p followed by 'key'
+KeyChord([mod], "p", [
+    Key([], "h", lazy.spawn("dm-hub -r"), desc='List all dmscripts'),
+    Key([], "a", lazy.spawn("dm-sounds -r"), desc='Choose ambient sound'),
+    Key([], "b", lazy.spawn("dm-setbg -r"), desc='Set background'),
+    Key([], "c", lazy.spawn("dtos-colorscheme -r"), desc='Choose color scheme'),
+    Key([], "e", lazy.spawn("dm-confedit -r"), desc='Choose a config file to edit'),
+    Key([], "i", lazy.spawn("dm-maim -r"), desc='Take a screenshot'),
+    Key([], "k", lazy.spawn("dm-kill -r"), desc='Kill processes '),
+    Key([], "m", lazy.spawn("dm-man -r"), desc='View manpages'),
+    Key([], "n", lazy.spawn("dm-note -r"), desc='Store and copy notes'),
+    Key([], "o", lazy.spawn("dm-bookman -r"), desc='Browser bookmarks'),
+    Key([], "p", lazy.spawn("rofi-pass"), desc='Logout menu'),
+    Key([], "q", lazy.spawn("dm-logout -r"), desc='Logout menu'),
+    Key([], "r", lazy.spawn("dm-radio -r"), desc='Listen to online radio'),
+    Key([], "s", lazy.spawn("dm-websearch -r"), desc='Search various engines'),
+    Key([], "t", lazy.spawn("dm-translate -r"), desc='Translate text')
+])
+"""
+
 
 groups = []
 group_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9",]
@@ -198,44 +208,10 @@ layouts = [
     #layout.Bsp(**layout_theme),
     #layout.Floating(**layout_theme)
     #layout.RatioTile(**layout_theme),
-    #layout.VerticalTile(**layout_theme),
     #layout.Matrix(**layout_theme),
     layout.MonadTall(**layout_theme),
+    layout.VerticalTile(**layout_theme),
     #layout.MonadWide(**layout_theme),
-    layout.Tile(
-         shift_windows=True,
-         border_width = 0,
-         margin = 0,
-         ratio = 0.335,
-         ),
-    layout.Max(
-         border_width = 0,
-         margin = 0,
-         ),
-    #layout.Stack(**layout_theme, num_stacks=2),
-    #layout.Columns(**layout_theme),
-    #layout.TreeTab(
-    #     font = "Ubuntu Bold",
-    #     fontsize = 11,
-    #     border_width = 0,
-    #     bg_color = colors[0],
-    #     active_bg = colors[8],
-    #     active_fg = colors[2],
-    #     inactive_bg = colors[1],
-    #     inactive_fg = colors[0],
-    #     padding_left = 8,
-    #     padding_x = 8,
-    #     padding_y = 6,
-    #     sections = ["ONE", "TWO", "THREE"],
-    #     section_fontsize = 10,
-    #     section_fg = colors[7],
-    #     section_top = 15,
-    #     section_bottom = 15,
-    #     level_shift = 8,
-    #     vspace = 3,
-    #     panel_width = 240
-    #     ),
-    #layout.Zoomy(**layout_theme),
 ]
 
 widget_defaults = dict(
@@ -371,6 +347,7 @@ def init_widgets_list():
         widget.Spacer(length = 8),
         widget.KeyboardLayout(
                  foreground = colors[4],
+                 configured_keyboards=['SE NODEADKEYS'],
                  fmt = '⌨  Kbd: {}',
                  decorations=[
                      BorderDecoration(
@@ -411,9 +388,9 @@ def init_widgets_screen2():
 # For ex: Screen(top=bar.Bar(widgets=init_widgets_screen2(), background="#00000000", size=24)),
 
 def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=26)),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26)),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26))]
+    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=26, background="#00000000"), wallpaper="~/.config/awesome/themes/powerarrow-blue/starwars.jpg", wallpaper_mode="stretch"),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26, background="#00000000"), wallpaper="~/.config/awesome/themes/powerarrow-blue/starwars.jpg", wallpaper_mode="stretch"),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26, background="#00000000"), wallpaper="~/.config/awesome/themes/powerarrow-blue/starwars.jpg", wallpaper_mode="stretch")]
 
 if __name__ in ["config", "__main__"]:
     screens = init_screens()
@@ -460,7 +437,7 @@ follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(
-    border_focus=colors[8],
+    #border_focus=colors[8],
     border_width=2,
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.

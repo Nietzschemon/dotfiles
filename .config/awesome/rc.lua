@@ -433,6 +433,10 @@ globalkeys = my_table.join(
     awful.key({ modkey, "Shift"   }, "q",  function () awful.spawn.with_shell( '~/.dmenu/prompt "are you sure?" "killall awesome"' ) end,
               {description = "quit awesome", group = "awesome"}),
 
+    --awful.key({ altkey, "Shift"   }, "j",     function () awful.tag:focus:relative_move( 20, 20, -40, -40)          end,
+              --{description = "increase slave width factor", group = "layout"}),
+    --awful.key({ altkey, "Shift"   }, "h",     function () awful.client.incmwfact(-0.05)          end,
+              --{description = "decrease master width factor", group = "layout"}),
     awful.key({ altkey, "Shift"   }, "l",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
     awful.key({ altkey, "Shift"   }, "h",     function () awful.tag.incmwfact(-0.05)          end,
@@ -663,6 +667,8 @@ awful.rules.rules = {
     -- Set applications to always map on the tag 1 on screen 1.
     -- find class or role via xprop command
     --rule = { class = browser1 },
+      --properties = { screen = 1, tag = "outlook-for-linux" } },
+    --rule = { class = browser1 },
       --properties = { screen = 1, tag = awful.util.tagnames[1] } },
 
     --{ rule = { class = editorgui },
@@ -681,6 +687,12 @@ awful.rules.rules = {
 
     -- Set applications to be maximized at startup.
     -- find class or role via xprop command
+
+    { rule = { class = "outlook" },
+          properties = { screen = 2 } },
+
+    { rule = { class = "teams" },
+          properties = { screen = 2 } },
 
     { rule = { class = editorgui },
           properties = { maximized = true } },
