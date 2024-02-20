@@ -31,6 +31,10 @@ alias egrep='egrep --color=auto'
 alias ffprobe='ffprobe -hide_banner' # removes the gcc compile information
 alias vim=nvim
 alias shutdown='shutdown now'
+alias ls='exa'
+alias ll='exa -lah'
+alias tree='exa --tree'
+alias cat='bat'
 
 alias swekeys='sudo loadkeys /usr/share/kbd/keymaps/i386/qwerty/se-lat6.map.gz'
 #alias pacman='sudo pacman'

@@ -19,6 +19,8 @@ HAS_WIDECHARS="false"
 # History in cache directory:
 HISTSIZE=100000
 SAVEHIST=100000
+export HISTORY_IGNORE="ls:cd:cd -:pwd:exit:clear:history:zoxide:z:zsh"
+export MANPAGER="nvim +Man!"
 #HISTFILE=~/.cache/zsh/.zsh_history
 #setopt INC_APPEND_HISTORY_TIME #<- adds commadns to history file at once
 #export HISTTIMEFORMAT="[%F %T] "
@@ -79,6 +81,8 @@ bindkey "^R" history-incremental-search-backward
 setxkbmap -layout se -variant nodeadkeys -option caps:escape
 
 #neofetch
-
+#colorscript -r
 # Start with random meme
 jp2a --color-depth=24 ~/Pictures/mems/$(ls ~/Pictures/mems/ | shuf -n 1 )
+
+eval "$(zoxide init --cmd cd zsh)"
