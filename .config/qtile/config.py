@@ -10,15 +10,10 @@ from qtile_extras.widget.decorations import BorderDecoration
 import colors
 
 mod = "mod4"              # Sets mod key to SUPER/WINDOWS
+alt = "mod1"
 myTerm = "st"      # My terminal of choice
 myBrowser = "chromium"       # My browser of choice
 myEmacs = "emacsclient -c -a 'emacs' " # The space at the end is IMPORTANT!
-
-# Allows you to input a name when adding treetab section.
-@lazy.layout.function
-def add_treetab_section(layout):
-    prompt = qtile.widgets_map["prompt"]
-    prompt.start_input("Section name: ", layout.cmd_add_section)
 
 # A function for hide/show all the windows in a group
 @lazy.function
@@ -45,13 +40,20 @@ keys = [
     Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
     #Key([mod, "shift"], "q", lazy.spawn("dm-logout -r"), desc="Logout menu"),
     #Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key([mod, "control", "shift"], "s", lazy.spawn("shutdown now"), desc='shutdown'),
+    Key([mod, "control", "shift"], "r", lazy.spawn("reboot"), desc='reboot'),
+    Key([mod, "control", "shift"], "l", lazy.spawn("xscreensaver-command --lock"), desc='lock computer'),
+
 
     # Website
     Key([mod], "w", lazy.spawn(myBrowser), desc='Chromium'),
     Key([mod, "shift"], "w", lazy.spawn("chromium --incognito"), desc='chromium incognito'),
-    Key([mod, "alt"], "w", lazy.spawn("brave --incognito"), desc='brave incognito'),
+    Key([mod, alt], "w", lazy.spawn("brave --incognito"), desc='brave incognito'),
     Key([mod, "control"], "w", lazy.spawn("firefox --private"), desc='firefox incognito'),
-    Key([mod, "control", "alt"], "w", lazy.spawn("qutebrowser"), desc='qutebrowser'),
+    Key([mod, "control", alt], "w", lazy.spawn("qutebrowser"), desc='qutebrowser'),
+
+    # Applications
+    Key([mod], "e", lazy.spawn("emacs"), desc='emacs'),
 
 
     
@@ -65,47 +67,15 @@ keys = [
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
 
-    # Move windows between left/right columns or move up/down in current stack.
-    # Moving out of range in Columns layout will create new column.
-    Key([mod, "shift"], "h",
-        lazy.layout.shuffle_left(),
-        lazy.layout.move_left().when(layout=["treetab"]),
-        desc="Move window to the left/move tab left in treetab"),
-
-    Key([mod, "shift"], "l",
-        lazy.layout.shuffle_right(),
-        lazy.layout.move_right().when(layout=["treetab"]),
-        desc="Move window to the right/move tab right in treetab"),
-
-    Key([mod, "shift"], "j",
-        lazy.layout.shuffle_down(),
-        lazy.layout.section_down().when(layout=["treetab"]),
-        desc="Move window down/move down a section in treetab"
-    ),
-    Key([mod, "shift"], "k",
-        lazy.layout.shuffle_up(),
-        lazy.layout.section_up().when(layout=["treetab"]),
-        desc="Move window downup/move up a section in treetab"
-    ),
-
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
-    Key([mod, "shift"], "space", lazy.layout.toggle_split(), desc="Toggle between split and unsplit sides of stack"),
-
-    # Treetab prompt
-    Key([mod, "shift"], "a", add_treetab_section, desc='Prompt to add new section in treetab'),
-
     # Grow/shrink windows left/right. 
     # This is mainly for the 'monadtall' and 'monadwide' layouts
     # although it does also work in the 'bsp' and 'columns' layouts.
-    Key([mod], "equal",
+    Key([alt, "shift"], "k",
         lazy.layout.grow_left().when(layout=["bsp", "columns"]),
         lazy.layout.grow().when(layout=["monadtall", "monadwide"]),
         desc="Grow window to the left"
     ),
-    Key([mod], "minus",
+    Key([alt, "shift"], "j",
         lazy.layout.grow_right().when(layout=["bsp", "columns"]),
         lazy.layout.shrink().when(layout=["monadtall", "monadwide"]),
         desc="Grow window to the left"
@@ -127,27 +97,29 @@ keys = [
     Key([mod], "period", lazy.next_screen(), desc='Move focus to next monitor'),
     Key([mod], "comma", lazy.prev_screen(), desc='Move focus to prev monitor')
     
-    """
-    # Dmenu/rofi scripts launched using the key chord SUPER+p followed by 'key'
-    KeyChord([mod], "p", [
-        Key([], "h", lazy.spawn("dm-hub -r"), desc='List all dmscripts'),
-        Key([], "a", lazy.spawn("dm-sounds -r"), desc='Choose ambient sound'),
-        Key([], "b", lazy.spawn("dm-setbg -r"), desc='Set background'),
-        Key([], "c", lazy.spawn("dtos-colorscheme -r"), desc='Choose color scheme'),
-        Key([], "e", lazy.spawn("dm-confedit -r"), desc='Choose a config file to edit'),
-        Key([], "i", lazy.spawn("dm-maim -r"), desc='Take a screenshot'),
-        Key([], "k", lazy.spawn("dm-kill -r"), desc='Kill processes '),
-        Key([], "m", lazy.spawn("dm-man -r"), desc='View manpages'),
-        Key([], "n", lazy.spawn("dm-note -r"), desc='Store and copy notes'),
-        Key([], "o", lazy.spawn("dm-bookman -r"), desc='Browser bookmarks'),
-        Key([], "p", lazy.spawn("rofi-pass"), desc='Logout menu'),
-        Key([], "q", lazy.spawn("dm-logout -r"), desc='Logout menu'),
-        Key([], "r", lazy.spawn("dm-radio -r"), desc='Listen to online radio'),
-        Key([], "s", lazy.spawn("dm-websearch -r"), desc='Search various engines'),
-        Key([], "t", lazy.spawn("dm-translate -r"), desc='Translate text')
-    ])
-"""
 ]
+
+"""
+# Dmenu/rofi scripts launched using the key chord SUPER+p followed by 'key'
+KeyChord([mod], "p", [
+    Key([], "h", lazy.spawn("dm-hub -r"), desc='List all dmscripts'),
+    Key([], "a", lazy.spawn("dm-sounds -r"), desc='Choose ambient sound'),
+    Key([], "b", lazy.spawn("dm-setbg -r"), desc='Set background'),
+    Key([], "c", lazy.spawn("dtos-colorscheme -r"), desc='Choose color scheme'),
+    Key([], "e", lazy.spawn("dm-confedit -r"), desc='Choose a config file to edit'),
+    Key([], "i", lazy.spawn("dm-maim -r"), desc='Take a screenshot'),
+    Key([], "k", lazy.spawn("dm-kill -r"), desc='Kill processes '),
+    Key([], "m", lazy.spawn("dm-man -r"), desc='View manpages'),
+    Key([], "n", lazy.spawn("dm-note -r"), desc='Store and copy notes'),
+    Key([], "o", lazy.spawn("dm-bookman -r"), desc='Browser bookmarks'),
+    Key([], "p", lazy.spawn("rofi-pass"), desc='Logout menu'),
+    Key([], "q", lazy.spawn("dm-logout -r"), desc='Logout menu'),
+    Key([], "r", lazy.spawn("dm-radio -r"), desc='Listen to online radio'),
+    Key([], "s", lazy.spawn("dm-websearch -r"), desc='Search various engines'),
+    Key([], "t", lazy.spawn("dm-translate -r"), desc='Translate text')
+])
+"""
+
 
 groups = []
 group_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9",]
@@ -198,44 +170,10 @@ layouts = [
     #layout.Bsp(**layout_theme),
     #layout.Floating(**layout_theme)
     #layout.RatioTile(**layout_theme),
-    #layout.VerticalTile(**layout_theme),
     #layout.Matrix(**layout_theme),
     layout.MonadTall(**layout_theme),
+    layout.VerticalTile(**layout_theme),
     #layout.MonadWide(**layout_theme),
-    layout.Tile(
-         shift_windows=True,
-         border_width = 0,
-         margin = 0,
-         ratio = 0.335,
-         ),
-    layout.Max(
-         border_width = 0,
-         margin = 0,
-         ),
-    #layout.Stack(**layout_theme, num_stacks=2),
-    #layout.Columns(**layout_theme),
-    #layout.TreeTab(
-    #     font = "Ubuntu Bold",
-    #     fontsize = 11,
-    #     border_width = 0,
-    #     bg_color = colors[0],
-    #     active_bg = colors[8],
-    #     active_fg = colors[2],
-    #     inactive_bg = colors[1],
-    #     inactive_fg = colors[0],
-    #     padding_left = 8,
-    #     padding_x = 8,
-    #     padding_y = 6,
-    #     sections = ["ONE", "TWO", "THREE"],
-    #     section_fontsize = 10,
-    #     section_fg = colors[7],
-    #     section_top = 15,
-    #     section_bottom = 15,
-    #     level_shift = 8,
-    #     vspace = 3,
-    #     panel_width = 240
-    #     ),
-    #layout.Zoomy(**layout_theme),
 ]
 
 widget_defaults = dict(
@@ -249,6 +187,9 @@ extension_defaults = widget_defaults.copy()
 
 def init_widgets_list():
     widgets_list = [
+
+        widget.Systray(padding = 3),
+        widget.Spacer(length = 8),
         widget.Image(
                  filename = "~/.config/qtile/icons/logo.png",
                  scale = "False",
@@ -284,7 +225,7 @@ def init_widgets_list():
                  fontsize = 14
                  ),
         widget.CurrentLayoutIcon(
-                 # custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
+            #custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
                  foreground = colors[1],
                  padding = 4,
                  scale = 0.6
@@ -369,17 +310,6 @@ def init_widgets_list():
                  ],
                  ),
         widget.Spacer(length = 8),
-        widget.KeyboardLayout(
-                 foreground = colors[4],
-                 fmt = '⌨  Kbd: {}',
-                 decorations=[
-                     BorderDecoration(
-                         colour = colors[4],
-                         border_width = [0, 0, 2, 0],
-                     )
-                 ],
-                 ),
-        widget.Spacer(length = 8),
         widget.Clock(
                  foreground = colors[8],
                  format = "⏱  %a, %b %d - %H:%M",
@@ -390,8 +320,6 @@ def init_widgets_list():
                      )
                  ],
                  ),
-        widget.Spacer(length = 8),
-        widget.Systray(padding = 3),
         widget.Spacer(length = 8),
 
         ]
@@ -404,16 +332,17 @@ def init_widgets_screen1():
 # All other monitors' bars will display everything but widgets 22 (systray) and 23 (spacer).
 def init_widgets_screen2():
     widgets_screen2 = init_widgets_list()
-    del widgets_screen2[22:24]
+    del widgets_screen2[0:2]
+    del widgets_screen2[8:18]
     return widgets_screen2
 
 # For adding transparency to your bar, add (background="#00000000") to the "Screen" line(s)
 # For ex: Screen(top=bar.Bar(widgets=init_widgets_screen2(), background="#00000000", size=24)),
 
 def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=26)),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26)),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26))]
+    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=26, background="#00000000"), wallpaper="~/.config/awesome/themes/powerarrow-blue/starwars.jpg", wallpaper_mode="stretch"),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26, background="#00000000"), wallpaper="~/.config/awesome/themes/powerarrow-blue/starwars.jpg", wallpaper_mode="stretch"),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26, background="#00000000"), wallpaper="~/.config/awesome/themes/powerarrow-blue/starwars.jpg", wallpaper_mode="stretch")]
 
 if __name__ in ["config", "__main__"]:
     screens = init_screens()
@@ -460,7 +389,7 @@ follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(
-    border_focus=colors[8],
+    #border_focus=colors[8],
     border_width=2,
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
