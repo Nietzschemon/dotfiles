@@ -5,6 +5,7 @@
 .histdb
 .gnupg
 .bash_history
+*__pycache__*
 ![a-zA-Z]
 .config/remmina
 .config/Sharepoint_Dental-IT_i_Sverige_AB
