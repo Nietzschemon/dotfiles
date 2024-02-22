@@ -5,6 +5,7 @@ COLORSCHEME=DoomOne
 
 ### AUTOSTART PROGRAMS ###
 lxsession &
+xscreensavior --no-splash &
 picom --daemon &
 "$HOME"/.screenlayout/defaultlayout.sh &
 sleep 1

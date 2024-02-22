@@ -6,7 +6,6 @@ from libqtile.lazy import lazy
 # Make sure 'qtile-extras' is installed or this config will not work.
 from qtile_extras import widget
 from qtile_extras.widget.decorations import BorderDecoration
-# from qtile_extras.widget import StatusNotifier
 import colors
 
 
@@ -46,7 +45,7 @@ keys = [
     # Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     Key([mod, "control", "shift"], "s", lazy.spawn("shutdown now"), desc='shutdown'),
     Key([mod, "control", "shift"], "r", lazy.spawn("reboot"), desc='reboot'),
-    Key([mod, "control", "shift"], "l", lazy.spawn("xscreensaver-command --lock"), desc='lock computer'),
+    Key([mod, "control", "shift"], "l", lazy.spawn("xscreensaver-command -lock"), desc='lock computer'),
 
 
     # Website
