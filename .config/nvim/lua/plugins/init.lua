@@ -146,6 +146,7 @@ local default_plugins = {
         "json-lsp",
         "tflint",
         "yaml-language-server",
+        "lua-language-server",
         "ansible-language-server",
         "css-lsp",
         "marksman",
