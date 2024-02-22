@@ -9,8 +9,8 @@ USE_POWERLINE="true"
 HAS_WIDECHARS="false"
 
 # Source manjaro-zsh-configuration
-[[ -e /usr/share/zsh/manjaro-zsh-config ]] && source ~/.config/zsh/manjaro-zsh-config
-[[ -e /usr/share/zsh/manjaro-zsh-prompt ]] && source ~/.config/zsh/manjaro-zsh-prompt
+[[ -e /usr/share/zsh/manjaro-zsh-config ]] && source /usr/share/zsh/manjaro-zsh-config
+[[ -e /usr/share/zsh/manjaro-zsh-prompt ]] && source /usr/share/zsh/manjaro-zsh-prompt
 
 ###################################################################
 ############################## END ################################
@@ -81,8 +81,8 @@ bindkey "^R" history-incremental-search-backward
 setxkbmap -layout se -variant nodeadkeys -option caps:escape
 
 #neofetch
-#colorscript -r
+colorscript -r
 # Start with random meme
-jp2a --color-depth=24 ~/Pictures/mems/$(ls ~/Pictures/mems/ | shuf -n 1 )
+#jp2a --color-depth=24 ~/Pictures/mems/$(ls ~/Pictures/mems/ | shuf -n 1 )
 
 eval "$(zoxide init --cmd cd zsh)"
