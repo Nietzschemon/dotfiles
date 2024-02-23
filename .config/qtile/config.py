@@ -59,6 +59,13 @@ keys = [
     Key([mod], "e", lazy.spawn("emacs"), desc='emacs'),
 
 
+    # Move widnows
+    Key([mod, "shift"], "h", lazy.layout.swap_left(), desc="Move window to left"),
+    Key([mod, "shift"], "l", lazy.layout.swap_right(), desc="Move window to right"),
+    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window to down"),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window to up"),
+    Key([mod, "shift"], "f", lazy.layout.flip(), desc="Flip layout"),
+    
 
     # Switch between windows
     # Some layouts like 'monadtall' only need to use j/k to move
@@ -70,26 +77,22 @@ keys = [
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
 
+    
     # Grow/shrink windows left/right.
     # This is mainly for the 'monadtall' and 'monadwide' layouts
     # although it does also work in the 'bsp' and 'columns' layouts.
-    Key([alt, "shift"], "k",
+    Key([mod, "control"], "k",
         lazy.layout.grow_left().when(layout=["bsp", "columns"]),
-        lazy.layout.grow().when(layout=["monadtall", "monadwide"]),
+        lazy.layout.grow().when(layout=["monadtall", "monadwide", "verticalTile"]),
         desc="Grow window to the left"
         ),
-    Key([alt, "shift"], "j",
+    Key([mod, "control"], "j",
         lazy.layout.grow_right().when(layout=["bsp", "columns"]),
-        lazy.layout.shrink().when(layout=["monadtall", "monadwide"]),
+        lazy.layout.shrink().when(layout=["monadtall", "monadwide", "verticalTile"]),
         desc="Grow window to the left"
         ),
 
     # Grow windows up, down, left, right.  Only works in certain layouts.
-    # Works in 'bsp' and 'columns' layout.
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     Key([mod], "m", lazy.layout.maximize(), desc='Toggle between min and max sizes'),
     Key([mod], "t", lazy.window.toggle_floating(), desc='toggle floating'),
@@ -251,9 +254,9 @@ def init_widgets_list():
                  ),
         widget.GenPollText(
                  update_interval = 300,
-                 func = lambda: subprocess.check_output("printf $(uname -r)", shell=True, text=True),
+                 func = lambda: subprocess.check_output("echo -n 'Richard sucks'", shell=True, text=True),
                  foreground = colors[3],
-                 fmt = '❤  {}',
+                 fmt = '❤ {} ❤',
                  decorations=[
                      BorderDecoration(
                          colour = colors[3],
