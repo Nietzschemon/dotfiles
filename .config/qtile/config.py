@@ -3,7 +3,6 @@ import subprocess
 from libqtile import bar, hook, layout, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
-from libqtile.utils import send_notification
 # Make sure 'qtile-extras' is installed or this config will not work.
 from qtile_extras import widget
 from qtile_extras.widget.decorations import BorderDecoration
@@ -59,6 +58,7 @@ keys = [
 
     # Applications
     Key([mod], "e", lazy.spawn("emacs"), desc='emacs'),
+    Key([mod], "p", lazy.spawn("rofi-rbw"), desc='rofi-rbw password manager'),
 
 
     # Move widnows
@@ -95,8 +95,7 @@ keys = [
 
     # Switch focus of monitors
     Key([mod], "period", lazy.next_screen(), desc='Move focus to next monitor'),
-    Key([mod], "comma", lazy.prev_screen(), desc='Move focus to prev monitor')
-
+    Key([mod], "comma", lazy.prev_screen(), desc='Move focus to prev monitor'),
 ]
 
 """
@@ -128,13 +127,11 @@ group_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9",]
 group_labels = ["DEV", "WWW", "SYS", "DOC", "VBOX", "CHAT", "MUS", "VID", "GFX",]
 # group_labels = ["", "", "", "", "", "", "", "", "",]
 
-group_layouts = ["monadtall", "monadtall", "tile", "tile", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall"]
-
 for i in range(len(group_names)):
     groups.append(
         Group(
             name=group_names[i],
-            layout=group_layouts[i].lower(),
+            layout="monadtall",
             label=group_labels[i],
         ))
 
@@ -192,13 +189,15 @@ def init_widgets_list():
 
         widget.Systray(padding = 3),
         widget.Spacer(length = 8),
-        widget.Image(
-                 filename = "~/.config/qtile/icons/logo.png",
-                 scale = "False",
-                 mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm)},
-                 ),
+        widget.TextBox(
+                 text = " ",
+                 font = "JetBrainsMonoNerdFont",
+                 foreground = colors[1],
+                 padding = 1,
+                 fontsize = 24
+            ),
         widget.Prompt(
-                 font = "Ubuntu Mono",
+                 font = "JetBrainsMonoNerdFont",
                  fontsize=14,
                  foreground = colors[1]
         ),
@@ -221,7 +220,7 @@ def init_widgets_list():
                  ),
         widget.TextBox(
                  text = '|',
-                 font = "Ubuntu Mono",
+                 font = "JetBrainsMonoNerdFont",
                  foreground = colors[1],
                  padding = 2,
                  fontsize = 14
@@ -238,7 +237,7 @@ def init_widgets_list():
                  ),
         widget.TextBox(
                  text = '|',
-                 font = "Ubuntu Mono",
+                 font = "JetBrainsMonoNerdFont",
                  foreground = colors[1],
                  padding = 2,
                  fontsize = 14
@@ -247,10 +246,23 @@ def init_widgets_list():
                  foreground = colors[6],
                  max_chars = 40
                  ),
+        widget.Notify(
+                forground = colors[1],
+                fmt = '  {} ',
+                font = "JetBrainsMonoNerdFont",
+                fontsize = 14,
+                padding = 8,
+                default_timeout = 30,
+                decorations=[
+                    BorderDecoration(
+                        colour = colors[2],
+                        border_width = [0, 0, 2, 0],
+                    )
+                ],
+                ),
         widget.GenPollText(
                  update_interval = 0.2,
-                 #func = lambda: subprocess.check_output("echo -n 'Richard sucks'", shell=True, text=True),
-                 func = lambda:f"{qtile.current_screen.index}",
+                 func = lambda: subprocess.check_output("echo -n 'Richard sucks'", shell=True, text=True),
                  foreground = colors[3],
                  fmt = '❤ {} ❤',
                  decorations=[
@@ -315,7 +327,7 @@ def init_widgets_list():
         widget.Spacer(length = 8),
         widget.Clock(
                  foreground = colors[8],
-                 format = "⏱  %a, %b %d - %H:%M",
+                 format = "⏱  %a, %b %d - %H:%M:%S",
                  decorations=[
                      BorderDecoration(
                          colour = colors[8],
@@ -347,8 +359,8 @@ def init_widgets_screen2():
 
 def init_screens():
     return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=26, background="#00000000"), wallpaper="~/.config/awesome/themes/powerarrow-blue/starwars.jpg", wallpaper_mode="stretch"),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26, background="#00000000"), wallpaper="~/.config/awesome/themes/powerarrow-blue/starwars.jpg", wallpaper_mode="stretch"),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26, background="#00000000"), wallpaper="~/.config/awesome/themes/powerarrow-blue/starwars.jpg", wallpaper_mode="stretch")]
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26), wallpaper="~/.config/awesome/themes/powerarrow-blue/starwars.jpg", wallpaper_mode="stretch"),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26), wallpaper="~/.config/awesome/themes/powerarrow-blue/starwars.jpg", wallpaper_mode="stretch")]
 
 
 if __name__ in ["config", "__main__"]:
