@@ -3,10 +3,12 @@ import subprocess
 from libqtile import bar, hook, layout, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
+from libqtile.utils import send_notification
 # Make sure 'qtile-extras' is installed or this config will not work.
 from qtile_extras import widget
 from qtile_extras.widget.decorations import BorderDecoration
 import colors
+
 
 
 mod = "mod4"              # Sets mod key to SUPER/WINDOWS
@@ -81,21 +83,13 @@ keys = [
     # Grow/shrink windows left/right.
     # This is mainly for the 'monadtall' and 'monadwide' layouts
     # although it does also work in the 'bsp' and 'columns' layouts.
-    Key([mod, "control"], "k",
-        lazy.layout.grow_left().when(layout=["bsp", "columns"]),
-        lazy.layout.grow().when(layout=["monadtall", "monadwide", "verticalTile"]),
-        desc="Grow window to the left"
-        ),
-    Key([mod, "control"], "j",
-        lazy.layout.grow_right().when(layout=["bsp", "columns"]),
-        lazy.layout.shrink().when(layout=["monadtall", "monadwide", "verticalTile"]),
-        desc="Grow window to the left"
-        ),
+    Key([mod, "control"], "k", lazy.layout.grow(), desc="Grow focused window"),
+    Key([mod, "control"], "j", lazy.layout.shrink(), desc="Shrink focused window"),
 
     # Grow windows up, down, left, right.  Only works in certain layouts.
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     Key([mod], "m", lazy.layout.maximize(), desc='Toggle between min and max sizes'),
-    Key([mod], "t", lazy.window.toggle_floating(), desc='toggle floating'),
+    Key([mod], "t", lazy.window.toggle_floating(), desc='Toggle floating'),
     Key([mod], "f", maximize_by_switching_layout(), lazy.window.toggle_fullscreen(), desc='toggle fullscreen'),
     Key([mod, "shift"], "m", minimize_all(), desc="Toggle hide/show all windows on current group"),
 
@@ -182,6 +176,7 @@ layouts = [
     # layout.MonadWide(**layout_theme),
 ]
 
+
 widget_defaults = dict(
     font="Ubuntu Bold",
     fontsize = 12,
@@ -253,8 +248,9 @@ def init_widgets_list():
                  max_chars = 40
                  ),
         widget.GenPollText(
-                 update_interval = 300,
-                 func = lambda: subprocess.check_output("echo -n 'Richard sucks'", shell=True, text=True),
+                 update_interval = 0.2,
+                 #func = lambda: subprocess.check_output("echo -n 'Richard sucks'", shell=True, text=True),
+                 func = lambda:f"{qtile.current_screen.index}",
                  foreground = colors[3],
                  fmt = '❤ {} ❤',
                  decorations=[
@@ -392,6 +388,15 @@ def switch_screens(qtile):
     i = qtile.screens.index(qtile.current_screen)
     group = qtile.screens[i - 1].group
     qtile.current_screen.set_group(group)
+
+@hook.subscribe.setgroup
+def set_layout_on_screen_dimensions():
+    for s in qtile.screens:
+        if s.width > s.height:
+            s.group.layout = 'monadtall'
+        else:
+            s.group.layout = 'verticaltile'
+
 
 
 mouse = [
