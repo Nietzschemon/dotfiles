@@ -97,7 +97,10 @@ keys = [
     Key([mod, "control"], "j", lazy.layout.shrink(), desc="Shrink focused window"),
 
     # Grow windows up, down, left, right.  Only works in certain layouts.
-    Key([mod], "n", lazy.layout.reset(), desc="Reset all window sizes"),
+    Key([mod], "n", 
+        lazy.layout.reset().when(layout='monadtall'), 
+        lazy.layout.normalize().when(layout='verticaltile'), 
+        desc="Reset all window sizes"),
     Key([mod, "shift"], "n", lazy.layout.reset(), desc="Reset slave window sizes"),
     Key([mod], "m", lazy.layout.maximize(), desc='Toggle between min and max sizes'),
     Key([mod], "t", lazy.window.toggle_floating(), desc='Toggle floating'),
