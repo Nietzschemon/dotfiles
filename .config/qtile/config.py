@@ -15,6 +15,7 @@ alt = "mod1"
 myTerm = "st"      # My terminal of choice
 myBrowser = "chromium"       # My browser of choice
 myEmacs = "emacsclient -c -a 'emacs' "  # The space at the end is IMPORTANT!
+home = os.path.expanduser('~')
 
 
 # A function for hide/show all the windows in a group
@@ -42,6 +43,7 @@ keys = [
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
+    Key([mod, "shift"], "c", lazy.spawn("st -e nvim " + home + "/.config/qtile/config.py"), desc="Open the config"),
     # Key([mod, "shift"], "q", lazy.spawn("dm-logout -r"), desc="Logout menu"),
     # Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     Key([mod, "control", "shift"], "s", lazy.spawn("shutdown now"), desc='shutdown'),
@@ -58,7 +60,11 @@ keys = [
 
     # Applications
     Key([mod], "e", lazy.spawn("emacs"), desc='emacs'),
+
+    # pwd manager
     Key([mod], "p", lazy.spawn("rofi-rbw"), desc='rofi-rbw password manager'),
+    Key([mod, "shift"], "p", lazy.spawn("st -e rbw unlock"), desc='unlock password manager'),
+    Key([mod, "control"], "p", lazy.spawn("sh -c 'rbw lock && notify-send \"password manager locked\" || notify-send -u critical \"Could not lock manager!\"'"), desc='unlock password manager'),
 
 
     # Move widnows
