@@ -66,6 +66,10 @@ keys = [
     Key([mod, "shift"], "p", lazy.spawn("st -e rbw unlock"), desc='unlock password manager'),
     Key([mod, "control"], "p", lazy.spawn("sh -c 'rbw lock && notify-send \"password manager locked\" || notify-send -u critical \"Could not lock manager!\"'"), desc='unlock password manager'),
 
+    # Bluetooth
+    Key([mod], "b", lazy.spawn("sh -c " + home + "/.scripts/bluetooth_connect.sh"), desc='unlock password manager'),
+    Key([mod, "control"], "b", lazy.spawn("sh -c " + home + "/.scripts/bluetooth_disconnect.sh"), desc='unlock password manager'),
+
 
     # Move widnows
     Key([mod, "shift"], "h", lazy.layout.swap_left(), desc="Move window to left"),
@@ -93,7 +97,8 @@ keys = [
     Key([mod, "control"], "j", lazy.layout.shrink(), desc="Shrink focused window"),
 
     # Grow windows up, down, left, right.  Only works in certain layouts.
-    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key([mod], "n", lazy.layout.reset(), desc="Reset all window sizes"),
+    Key([mod, "shift"], "n", lazy.layout.reset(), desc="Reset slave window sizes"),
     Key([mod], "m", lazy.layout.maximize(), desc='Toggle between min and max sizes'),
     Key([mod], "t", lazy.window.toggle_floating(), desc='Toggle floating'),
     Key([mod], "f", maximize_by_switching_layout(), lazy.window.toggle_fullscreen(), desc='toggle fullscreen'),
