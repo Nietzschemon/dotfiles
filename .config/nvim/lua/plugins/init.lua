@@ -1,3 +1,4 @@
+local overrides = require ("custom.configs.overrides")
 -- All plugins have lazy=true by default,to load a plugin on startup just lazy=false
 -- List of all default plugins & their definitions
 local default_plugins = {
@@ -116,8 +117,11 @@ local default_plugins = {
     end,
   },
   {
+    
     "github/copilot.vim",
     lazy = false,
+    event = "InsertEnter",
+    opts = overrides.copilot,
     config = function()
       -- Mapping tab is already used by NvChad
       vim.g.copilot_no_tab_map = true;
@@ -141,7 +145,7 @@ local default_plugins = {
       require("mason").setup(opts)
 
       opts.ensure_installed = {
-"typescript-language-server",
+        "typescript-language-server",
         "eslint-lsp",
         "json-lsp",
         "tflint",
@@ -151,8 +155,7 @@ local default_plugins = {
         "css-lsp",
         "marksman",
         "powershell-editor-services",
-        "python-lsp-server"
-
+        "pyright",
       }
       -- custom nvchad cmd to install all mason binaries listed
       vim.api.nvim_create_user_command("MasonInstallAll", function()
