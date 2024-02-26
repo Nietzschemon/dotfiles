@@ -201,7 +201,6 @@ extension_defaults = widget_defaults.copy()
 def init_widgets_list():
     widgets_list = [
 
-        widget.Systray(padding = 3),
         widget.Spacer(length = 8),
         widget.TextBox(
                  text = " ",
@@ -267,6 +266,8 @@ def init_widgets_list():
                 fontsize = 14,
                 padding = 8,
                 default_timeout = 30,
+                default_low = 30,
+                default_urgent = 360,
                 decorations=[
                     BorderDecoration(
                         colour = colors[2],
@@ -274,6 +275,7 @@ def init_widgets_list():
                     )
                 ],
                 ),
+        widget.Systray(padding = 3),
         widget.GenPollText(
                  update_interval = 0.2,
                  func = lambda: subprocess.check_output("echo -n 'Richard sucks'", shell=True, text=True),
@@ -363,18 +365,17 @@ def init_widgets_screen1():
 # All other monitors' bars will display everything but widgets 22 (systray) and 23 (spacer).
 def init_widgets_screen2():
     widgets_screen2 = init_widgets_list()
-    del widgets_screen2[0:2]
-    del widgets_screen2[8:18]
+    #del widgets_screen2[8:18]
+    del widgets_screen2[9:]
     return widgets_screen2
+
 
 # For adding transparency to your bar, add (background="#00000000") to the "Screen" line(s)
 # For ex: Screen(top=bar.Bar(widgets=init_widgets_screen2(), background="#00000000", size=24)),
-
-
 def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=26, background="#00000000"), wallpaper="~/.config/awesome/themes/powerarrow-blue/starwars.jpg", wallpaper_mode="stretch"),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26), wallpaper="~/.config/awesome/themes/powerarrow-blue/starwars.jpg", wallpaper_mode="stretch"),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26), wallpaper="~/.config/awesome/themes/powerarrow-blue/starwars.jpg", wallpaper_mode="stretch")]
+    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=26)),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26)),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26))]
 
 
 if __name__ in ["config", "__main__"]:

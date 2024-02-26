@@ -9,7 +9,7 @@ xscreensaver --no-splash &
 picom --daemon &
 "$HOME"/.screenlayout/defaultlayout.sh &
 sleep 1
-conky -c "$HOME"/.config/conky/qtile/01/"$COLORSCHEME".conf || echo "Couldn't start conky."
+conky -c "$HOME"/.config/conky/qtile/01/"$COLORSCHEME".conf || echo "Couldn't start conky." &
 
 ### UNCOMMENT ONLY ONE OF THE FOLLOWING THREE OPTIONS! ###
 # 1. Uncomment to restore last saved wallpaper
