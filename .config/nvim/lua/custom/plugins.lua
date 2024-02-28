@@ -13,7 +13,8 @@ local plugins = {
         require("chatgpt").setup({
         api_key_cmd = "rbw get gpt-api-key",
         openai_params = {
-          model = "gpt-4-turbo-preview"
+          model = "gpt-4-turbo-preview",
+          max_tokens = 2000
         }
       })
       end,
@@ -37,11 +38,30 @@ local plugins = {
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
     opts = {
       ensure_installed = {
-        "mypy",
-        "ruff",
         "pyright",
+        "prettier",
+        "prettierd",
+        "isort",
+        "black",
       }
     },
+  },
+  {
+    'stevearc/conform.nvim',
+    --opts = {},
+    lazy = false,
+    config = function()
+      require("conform").setup({
+        lsp_fallback = true,
+        formatters_by_ft = {
+          lua = { "stylua" },
+          -- Conform will run multiple formatters sequentially
+          python = { "isort", "black" },
+          -- Use a sub-list to run only the first available formatter
+          javascript = { { "prettierd", "prettier" } },
+        },
+      })
+    end
   },
   {
     "neovim/nvim-lspconfig",
