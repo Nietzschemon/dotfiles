@@ -33,19 +33,9 @@ local plugins = {
       -- or run <leader>ch to see copilot mapping section
     end
   },
-  {
-    "williamboman/mason.nvim",
-    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
-    opts = {
-      ensure_installed = {
-        "pyright",
-        "prettier",
-        "prettierd",
-        "isort",
-        "black",
-      }
-    },
-  },
+  --{
+    --"williamboman/mason.nvim",
+  --},
   {
     'stevearc/conform.nvim',
     --opts = {},

@@ -140,6 +140,12 @@ local default_plugins = {
         "css-lsp",
         "marksman",
         "powershell-editor-services",
+
+        "pyright",
+        "prettier",
+        "prettierd",
+        "isort",
+        "black",
       }
       -- custom nvchad cmd to install all mason binaries listed
       vim.api.nvim_create_user_command("MasonInstallAll", function()
