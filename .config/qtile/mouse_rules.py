@@ -2,7 +2,6 @@ from libqtile.config import Click, Drag
 from libqtile.lazy import lazy
 
 mod = "mod4"  # Sets mod key to SUPER/WINDOWS
-alt = "mod1"
 
 
 def init_mouse():

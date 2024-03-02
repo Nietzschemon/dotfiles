@@ -1,21 +1,7 @@
-import os
-import subprocess
-
-from libqtile import bar, hook, layout, qtile
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.config import Group, Key
 from libqtile.lazy import lazy
 
-# Make sure 'qtile-extras' is installed or this config will not work.
-from qtile_extras import widget
-from qtile_extras.widget.decorations import BorderDecoration
-
-import colors
-from desktop_rules import float_rules
-from keys import key_shortcuts
-
 mod = "mod4"  # Sets mod key to SUPER/WINDOWS
-alt = "mod1"
-myTerm = "st"  # My terminal of choice
 
 
 def panel_setup(keys):

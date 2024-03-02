@@ -28,7 +28,6 @@ def key_shortcuts():
     myTerm = "st"  # My terminal of choice
     myBrowser = "chromium"  # My browser of choice
     home = os.path.expanduser("~")
-    wallpapers = os.path.expanduser("~/Pictures/wallpapers")
     return [
         # The essentials
         Key([mod], "Return", lazy.spawn(myTerm), desc="Terminal"),
@@ -116,13 +115,7 @@ def key_shortcuts():
         Key(
             [mod, alt],
             "b",
-            lazy.spawn(
-                'sh -c "xwallpaper --stretch '
-                + wallpapers
-                + "/$(ls "
-                + wallpapers
-                + ' | shuf -n 1)"'
-            ),
+            lazy.spawn("sh -c " + home + "/.scripts/switch-wallpaper.sh"),
             desc="switch wallpaper",
         ),
         # Move widnows

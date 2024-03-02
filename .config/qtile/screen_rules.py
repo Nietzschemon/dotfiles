@@ -1,5 +1,5 @@
-from libqtile import bar, hook, layout, qtile
-from libqtile.config import Click, Drag, Screen
+from libqtile import bar, hook, qtile
+from libqtile.config import Screen
 
 from widgets_setup import init_widgets_list
 
@@ -19,12 +19,31 @@ def init_widgets_screen2():
 
 # For adding transparency to your bar, add (background="#00000000") to the "Screen" line(s)
 # For ex: Screen(top=bar.Bar(widgets=init_widgets_screen2(), background="#00000000", size=24)),
-def init_screens():
-    return [
-        Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=26)),
-        Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26)),
-        Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26)),
-    ]
+def init_screens(theme_colors=None):
+    if theme_colors:
+        return [
+            Screen(
+                top=bar.Bar(
+                    widgets=init_widgets_screen1(), size=26, background=theme_colors[0]
+                )
+            ),
+            Screen(
+                top=bar.Bar(
+                    widgets=init_widgets_screen2(), size=26, background=theme_colors[0]
+                )
+            ),
+            Screen(
+                top=bar.Bar(
+                    widgets=init_widgets_screen2(), size=26, background=theme_colors[0]
+                )
+            ),
+        ]
+    else:
+        return [
+            Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=26)),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26)),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26)),
+        ]
 
 
 def window_to_prev_group(qtile):

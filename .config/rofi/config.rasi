@@ -3,6 +3,12 @@ configuration {
  font: "hack 10";
  combi-modi: "window,drun,ssh";
  }
-@theme "~/.config/rofi/themes/dt-center.rasi"
+
+/* Dark theme. */
+@import "~/.cache/wal/colors-rofi-dark"
+
+/* Light theme. */
+@import "~/.cache/wal/colors-rofi-light"
+
 
 

@@ -6,13 +6,13 @@ from libqtile import qtile
 from qtile_extras import widget
 from qtile_extras.widget.decorations import BorderDecoration
 
-import colors
+import theme_setup
 
-colors = colors.DoomOne
 myTerm = "st"  # My terminal of choice
 
 
 def init_widgets_list():
+    colors = theme_setup.colors
     widgets_list = [
         widget.Spacer(length=8),
         widget.TextBox(
