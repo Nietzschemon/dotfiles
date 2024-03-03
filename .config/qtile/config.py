@@ -1,7 +1,6 @@
 import os
 import subprocess
 
-import colors
 from libqtile import hook, layout
 
 import theme_setup
