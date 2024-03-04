@@ -81,7 +81,8 @@ local default_plugins = {
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     opts = function()
-      return require "plugins.configs.treesitter"
+      -- return require "plugins.configs.treesitter"
+      return require "custom.configs.treesitter"
     end,
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "syntax")

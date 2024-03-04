@@ -54,6 +54,30 @@ local plugins = {
     end
   },
   {
+    "tpope/vim-dadbod",
+    lazy = false,
+    opt = true,
+    cmd = { "DB", "DBUI" },
+    requires = { "kristijanhusak/vim-dadbod-ui", "kristijanhusak/vim-dadbod-completion" },
+    config = function()
+      require("custom.configs.dadbod").setup()
+    end
+  },
+  {
+    "kristijanhusak/vim-dadbod-ui",
+    lazy = false,
+  },
+  {
+    "kristijanhusak/vim-dadbod-completion",
+    lazy = false,
+    dependencies = { "kristijanhusak/vim-dadbod-ui" },
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    lazy = false,
+    requires = { "nvim-treesitter/nvim-treesitter" },
+  },
+  {
     "neovim/nvim-lspconfig",
     config = function()
       require "plugins.configs.lspconfig"

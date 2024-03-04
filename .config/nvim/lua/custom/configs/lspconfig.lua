@@ -5,7 +5,7 @@ local capabilities = configs.capabilities
 
 local lspconfig = require("lspconfig")
 
-local servers = { "html", "cssls", "clangd"}
+local servers = { "html", "cssls", "clangd" }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
@@ -18,6 +18,7 @@ lspconfig.pyright.setup {
   capabilities = capabilities,
   filetypes = { "python" },
 }
+
 
 -- Without the loop, you would have to manually set up each LSP 
 -- 
