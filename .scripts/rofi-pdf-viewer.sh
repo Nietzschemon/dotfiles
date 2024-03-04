@@ -18,6 +18,6 @@ PATH="/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bi
 
 PDF_PATH=$( ls -d ~/Documents/pdf/* | rofi -dmenu -matching fuzzy)
 if [[ $PDF_PATH ]]; then
- zathura $PDF_PATH --config-dir="$zathura_tmp"
+ zathura "$PDF_PATH" --config-dir="$zathura_tmp"
 fi
 
