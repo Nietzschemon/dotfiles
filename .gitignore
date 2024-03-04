@@ -5,6 +5,7 @@
 .histdb
 .gnupg
 .bash_history
+.config/nvim/db_ui
 *__pycache__*
 ![a-zA-Z]
 .config/remmina
