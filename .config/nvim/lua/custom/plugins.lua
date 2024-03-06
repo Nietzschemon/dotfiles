@@ -1,4 +1,4 @@
-local overrides = require ("custom.configs.overrides")
+local overrides = require("custom.configs.overrides")
 local plugins = {
   {
     dependencies = {
@@ -33,9 +33,24 @@ local plugins = {
       -- or run <leader>ch to see copilot mapping section
     end
   },
-  --{
-    --"williamboman/mason.nvim",
-  --},
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "black",
+        "mypy",
+        "ruff",
+        "pyright",
+      }
+    }
+  },
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      require "plugins.configs.lspconfig"
+      require "custom.configs.lspconfig"
+    end,
+  },
   {
     'stevearc/conform.nvim',
     --opts = {},
@@ -54,35 +69,13 @@ local plugins = {
     end
   },
   {
-    "tpope/vim-dadbod",
-    lazy = false,
-    opt = true,
-    cmd = { "DB", "DBUI" },
-    requires = { "kristijanhusak/vim-dadbod-ui", "kristijanhusak/vim-dadbod-completion" },
-    config = function()
-      require("custom.configs.dadbod").setup()
-    end
-  },
-  {
-    "kristijanhusak/vim-dadbod-ui",
-    lazy = false,
-  },
-  {
-    "kristijanhusak/vim-dadbod-completion",
-    lazy = false,
-    dependencies = { "kristijanhusak/vim-dadbod-ui" },
-  },
-  {
     "nvim-treesitter/nvim-treesitter-textobjects",
     lazy = false,
-    requires = { "nvim-treesitter/nvim-treesitter" },
+    requires = { "nvim-treesitter/nvim-treesitter-textobjects", "nvim-treesitter/nvim-treesitter" },
   },
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require "plugins.configs.lspconfig"
-      require "custom.configs.lspconfig"
-    end,
-  },
+  --{
+    --"nvim-treesitter/nvim-treesitter",
+    --opts = require("custom.configs.treesitter"),
+  --},
 }
 return plugins

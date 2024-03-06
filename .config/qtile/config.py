@@ -11,8 +11,10 @@ from panel import panel_setup
 from screen_rules import init_screens, init_widgets_screen1, init_widgets_screen2
 from widgets_setup import init_widgets_list
 
+
 keys = key_shortcuts()
 groups = panel_setup(keys)
+
 
 theme_setup.setup()
 colors = theme_setup.special_colors

@@ -1,4 +1,3 @@
--- local overrides = require ("custom.configs.overrides")
 -- All plugins have lazy=true by default,to load a plugin on startup just lazy=false
 -- List of all default plugins & their definitions
 local default_plugins = {
@@ -32,9 +31,7 @@ local default_plugins = {
 
   {
     "NvChad/nvim-colorizer.lua",
-    init = function()
-      require("core.utils").lazy_load "nvim-colorizer.lua"
-    end,
+    event = "User FilePost",
     config = function(_, opts)
       require("colorizer").setup(opts)
 
@@ -44,7 +41,6 @@ local default_plugins = {
       end, 0)
     end,
   },
-
 
   {
     "nvim-tree/nvim-web-devicons",
@@ -60,9 +56,7 @@ local default_plugins = {
   {
     "lukas-reineke/indent-blankline.nvim",
     version = "2.20.7",
-    init = function()
-      require("core.utils").lazy_load "indent-blankline.nvim"
-    end,
+    event = "User FilePost",
     opts = function()
       return require("plugins.configs.others").blankline
     end,
@@ -75,14 +69,11 @@ local default_plugins = {
 
   {
     "nvim-treesitter/nvim-treesitter",
-    init = function()
-      require("core.utils").lazy_load "nvim-treesitter"
-    end,
+    event = { "BufReadPost", "BufNewFile" },
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     opts = function()
-      -- return require "plugins.configs.treesitter"
-      return require "custom.configs.treesitter"
+      return require "plugins.configs.treesitter"
     end,
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "syntax")
@@ -93,22 +84,7 @@ local default_plugins = {
   -- git stuff
   {
     "lewis6991/gitsigns.nvim",
-    ft = { "gitcommit", "diff" },
-    init = function()
-      -- load gitsigns only when a git file is opened
-      vim.api.nvim_create_autocmd({ "BufRead" }, {
-        group = vim.api.nvim_create_augroup("GitSignsLazyLoad", { clear = true }),
-        callback = function()
-          vim.fn.system("git -C " .. '"' .. vim.fn.expand "%:p:h" .. '"' .. " rev-parse")
-          if vim.v.shell_error == 0 then
-            vim.api.nvim_del_augroup_by_name "GitSignsLazyLoad"
-            vim.schedule(function()
-              require("lazy").load { plugins = { "gitsigns.nvim" } }
-            end)
-          end
-        end,
-      })
-    end,
+    event = "User FilePost",
     opts = function()
       return require("plugins.configs.others").gitsigns
     end,
@@ -117,7 +93,6 @@ local default_plugins = {
       require("gitsigns").setup(opts)
     end,
   },
-
 
   -- lsp stuff
   {
@@ -130,41 +105,22 @@ local default_plugins = {
       dofile(vim.g.base46_cache .. "mason")
       require("mason").setup(opts)
 
-      opts.ensure_installed = {
-        "typescript-language-server",
-        "eslint-lsp",
-        "json-lsp",
-        "tflint",
-        "yaml-language-server",
-        "lua-language-server",
-        "ansible-language-server",
-        "css-lsp",
-        "marksman",
-        "powershell-editor-services",
-
-        "pyright",
-        "prettier",
-        "prettierd",
-        "isort",
-        "black",
-      }
       -- custom nvchad cmd to install all mason binaries listed
       vim.api.nvim_create_user_command("MasonInstallAll", function()
-        vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
+        if opts.ensure_installed and #opts.ensure_installed > 0 then
+          vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
+        end
       end, {})
--- typescript-language-server
+
       vim.g.mason_binaries_list = opts.ensure_installed
     end,
   },
 
   {
     "neovim/nvim-lspconfig",
-    init = function()
-      require("core.utils").lazy_load "nvim-lspconfig"
-    end,
+    event = "User FilePost",
     config = function()
       require "plugins.configs.lspconfig"
-      require "custom.configs.lspconfig"
     end,
   },
 
@@ -252,7 +208,7 @@ local default_plugins = {
 
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter", { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     cmd = "Telescope",
     init = function()
       require("core.utils").load_mappings "telescope"
@@ -286,7 +242,6 @@ local default_plugins = {
     end,
   },
 }
-
 
 local config = require("core.utils").load_config()
 

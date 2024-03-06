@@ -1,5 +1,5 @@
 local options = {
-  ensure_installed = { "lua", "python", "typescript", "sql", "json", "yaml", "html", "css", "javascript", "tsx", "bash", "vim", "dockerfile", "scss", "vue" },
+  ensure_installed = { "lua", "typescript", "sql", "json", "yaml", "html", "css", "javascript", "tsx", "bash", "vim", "dockerfile", "scss", "vue", "python" },
 
   highlight = {
     enable = true,

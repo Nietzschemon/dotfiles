@@ -19,8 +19,3 @@ end
 dofile(vim.g.base46_cache .. "defaults")
 vim.opt.rtp:prepend(lazypath)
 require "plugins"
-
-vim.wo.relativenumber = true
-vim.opt.clipboard = "unnamedplus"
-
--- :hi normal guibg=NONE

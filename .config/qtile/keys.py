@@ -75,6 +75,9 @@ def key_shortcuts():
         ),
         Key([mod, "control", alt], "w", lazy.spawn("qutebrowser"), desc="qutebrowser"),
         # Applications
+        Key([mod], "c", lazy.spawn("teams-for-linux"), desc="teams"),
+        Key([mod, "control"], "c", lazy.spawn("outlook-for-linux"), desc="outlook"),
+        Key([mod, alt], "c", lazy.spawn("telegram"), desc="telegram"),
         Key([mod], "e", lazy.spawn("emacs"), desc="emacs"),
         Key(
             [mod],
@@ -96,7 +99,7 @@ def key_shortcuts():
             lazy.spawn(
                 'sh -c \'rbw lock && notify-send "password manager locked" || notify-send -u critical "Could not lock manager!"\''
             ),
-            desc="unlock password manager",
+            desc="lock password manager",
         ),
         # Bluetooth
         Key(
