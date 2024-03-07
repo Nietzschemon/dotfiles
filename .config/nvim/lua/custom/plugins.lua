@@ -41,8 +41,19 @@ local plugins = {
         "mypy",
         "ruff",
         "pyright",
+        "prettier",
+        "prettierd"
       }
     }
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    config = function()
+    require("mason-lspconfig").setup({
+
+        ensure_installed={"tsserver"}
+      })
+    end
   },
   {
     "neovim/nvim-lspconfig",
@@ -68,6 +79,11 @@ local plugins = {
       })
     end
   },
+  {
+  "typescript-language-server/typescript-language-server",
+
+  },
+
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     lazy = false,
