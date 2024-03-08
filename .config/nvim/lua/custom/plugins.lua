@@ -50,7 +50,6 @@ local plugins = {
     "williamboman/mason-lspconfig.nvim",
     config = function()
     require("mason-lspconfig").setup({
-
         ensure_installed={"tsserver"}
       })
     end
@@ -80,10 +79,10 @@ local plugins = {
     end
   },
   {
-  "typescript-language-server/typescript-language-server",
-
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
   },
-
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     lazy = false,
