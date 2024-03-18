@@ -34,6 +34,12 @@ def key_shortcuts():
         Key(
             [mod, "shift"],
             "Return",
+            lazy.spawn("rofi -show drun"),
+            desc="start rofi applications only",
+        ),
+        Key(
+            [mod, "shift", "control"],
+            "Return",
             lazy.spawn("dmenu_run -fn Monospace-22"),
             desc="start dmenu",
         ),
