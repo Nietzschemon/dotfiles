@@ -11,7 +11,31 @@ return {
         -- opts will be merged with the parent spec
         opts = { use_diagnostic_signs = true },
     },
-
+    {
+        "mechatroner/rainbow_csv",
+    },
+    {
+        "nvim-neorg/neorg",
+        build = ":Neorg sync-parsers",
+        lazy = false, -- specify lazy = false because some lazy.nvim distributions set lazy = true by default
+        -- tag = "*",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            require("neorg").setup({
+                load = {
+                    ["core.defaults"] = {}, -- Loads default behaviour
+                    ["core.concealer"] = {}, -- Adds pretty icons to your documents
+                    ["core.dirman"] = { -- Manages Neorg workspaces
+                        config = {
+                            workspaces = {
+                                notes = "~/notes",
+                            },
+                        },
+                    },
+                },
+            })
+        end,
+    },
     -- disable trouble
     --{ "folke/trouble.nvim", enabled = false },
 
@@ -140,6 +164,8 @@ return {
                 "typescript",
                 "vim",
                 "yaml",
+                "c",
+                "cpp",
             },
         },
     },
