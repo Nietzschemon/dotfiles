@@ -81,8 +81,18 @@ def key_shortcuts():
         ),
         Key([mod, "control", alt], "w", lazy.spawn("qutebrowser"), desc="qutebrowser"),
         # Applications
-        Key([mod], "c", lazy.spawn("teams-for-linux"), desc="teams"),
-        Key([mod, "control"], "c", lazy.spawn("outlook-for-linux"), desc="outlook"),
+        Key(
+            [mod],
+            "c",
+            lazy.spawn("chromium --app='https://teams.microsoft.com/'"),
+            desc="teams",
+        ),
+        Key(
+            [mod, "control"],
+            "c",
+            lazy.spawn("chromium --app='https://outlook.office.com/mail/'"),
+            desc="outlook",
+        ),
         Key([mod, alt], "c", lazy.spawn("telegram"), desc="telegram"),
         Key([mod], "e", lazy.spawn("emacs"), desc="emacs"),
         Key(
