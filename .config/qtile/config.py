@@ -30,6 +30,7 @@ layout_theme = {
 layouts = [
     layout.MonadTall(**layout_theme),
     layout.VerticalTile(**layout_theme),
+    layout.Matrix(**layout_theme),
 ]
 
 widget_defaults = dict(font="Ubuntu Bold", fontsize=12, padding=0, background=colors[0])
